@@ -39,110 +39,179 @@ def match_field_and_fill(page, container, title, item_data):
     clean_title = re.sub(r'^\d+\.\s*', '', title).strip().lower()
     clean_title = re.sub(r'\*$', '', clean_title).strip() # Remove required asterisk
     
-    # Define mappings from form question titles (lowercase substrings) to our inventory keys
-    field_mappings = {
-        "software name": "Software Name",
-        "name of software": "Software Name",
-        
-        "version": "Version",
-        
-        "vendor": "Vendor/Provider",
-        "provider": "Vendor/Provider",
-        
-        "your name": "Your Name",
-        "name": "Your Name",
-        
-        "program": "What Program(s) does this software serve?",
-        
-        "course": "What is the specific course/module/project you are using this software for?",
-        "module": "What is the specific course/module/project you are using this software for?",
-        "project": "What is the specific course/module/project you are using this software for?",
-        
-        "license type": "License Type (Perpetual, Subscription, Client/Server,Free, Open Source, etc.)",
-        "licensing": "License Type (Perpetual, Subscription, Client/Server,Free, Open Source, etc.)",
-        
-        "number of licenses": "Number of Licenses/Users (Only if known)",
-        "users": "Number of Licenses/Users (Only if known)",
-        "licenses": "Number of Licenses/Users (Only if known)",
-        
-        "scope": "Scope  (lab, faculty, student, cloud, all)",
-        
-        "classroom": "Specific Classrooms you intend to use software in. (If on-prem software)",
-        "lab": "Specific Classrooms you intend to use software in. (If on-prem software)",
-        
-        "already being used": "Is this a software or service that is already being used?",
-        "already used": "Is this a software or service that is already being used?",
-        "existing": "Is this a software or service that is already being used?",
-        
-        "cost": "Cost (only if known)",
-        
-        "notes": "Notes/Comments/Special Requirements",
-        "comments": "Notes/Comments/Special Requirements",
-        "special requirements": "Notes/Comments/Special Requirements"
-    }
-    
-    matched_key = None
-    for kw, inventory_key in field_mappings.items():
-        if kw in clean_title:
-            matched_key = inventory_key
-            break
-            
-    if not matched_key:
-        print(f"  [Warning] Could not match question: '{title}'")
-        return False
-        
-    value = item_data.get(matched_key, "")
-    if str(value).strip() == "":
-        print(f"  Matching: '{title}' -> Key: '{matched_key}' -> Leaving blank")
-        # Clear the field if it was pre-filled (some textboxes might have placeholders or default values)
-        text_input = container.locator('input[type="text"]')
-        textarea = container.locator('textarea')
-        if text_input.count() > 0:
-            text_input.fill("")
-        elif textarea.count() > 0:
-            textarea.fill("")
-        return True
-        
-    print(f"  Matching: '{title}' -> Key: '{matched_key}' -> Filling: '{value}'")
-    
-    # Determine the input type in the container
-    text_input = container.locator('input[type="text"]')
+    # Let's inspect the inputs available in this container
+    text_input = container.locator('input:not([type="radio"]):not([type="checkbox"])')
     textarea = container.locator('textarea')
     radios = container.locator('input[type="radio"]')
     checkboxes = container.locator('input[type="checkbox"]')
     
-    if text_input.count() > 0:
-        text_input.fill(str(value))
-        return True
-    elif textarea.count() > 0:
-        textarea.fill(str(value))
-        return True
-    elif radios.count() > 0:
-        # It's a radio question. Find the option matching the value
-        options_count = radios.count()
-        # Find labels inside the container
+    # Question 1: Campus
+    if "campus" in clean_title:
+        # Default to "Truro"
+        campus_val = "Truro"
+        # Find option matching "Truro"
         labels = container.locator('label').all()
         for label in labels:
-            label_text = label.inner_text().strip().lower()
-            if str(value).lower() in label_text or label_text in str(value).lower():
+            if "truro" in label.inner_text().strip().lower():
                 label.click()
+                print("  Campus -> Selected 'Truro'")
                 return True
-        # If no direct match, click the first one as default or leave blank
+        return False
+
+    # Question 2: Software/Service name and Version
+    if "software/service name and version" in clean_title or ("software/service name" in clean_title and "version" in clean_title):
+        name = item_data.get("Software Name", "")
+        version = item_data.get("Version", "")
+        value = f"{name} {version}".strip() if version else name
+        if text_input.count() > 0:
+            text_input.fill(value)
+            print(f"  Software Name & Version -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 3: Vendor/Provider
+    if "vendor/provider" in clean_title or ("vendor" in clean_title and "provider" in clean_title):
+        value = item_data.get("Vendor/Provider", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Vendor/Provider -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 4: License type
+    if "license type" in clean_title or "licensing" in clean_title:
+        inv_license = str(item_data.get("License Type (Perpetual, Subscription, Client/Server,Free, Open Source, etc.)", "")).lower()
+        target_option = None
+        if "subscription" in inv_license:
+            target_option = "Annual Subscription"
+        elif "open source" in inv_license or "gpl" in inv_license or "lgpl" in inv_license or "busl" in inv_license or "sspl" in inv_license:
+            target_option = "Open Source"
+        elif "free" in inv_license or "proprietary" in inv_license:
+            target_option = "Free"
+        elif "perpetual" in inv_license:
+            target_option = "Perpetual"
+        elif "client" in inv_license or "server" in inv_license:
+            target_option = "Client/Server"
+        
+        # Click the matched radio button
+        labels = container.locator('label').all()
+        if target_option:
+            for label in labels:
+                if target_option.lower() in label.inner_text().strip().lower():
+                    label.click()
+                    print(f"  License Type -> Selected: '{target_option}' (Mapped from '{inv_license}')")
+                    return True
+        # Fallback to "Free" or first option if not matched
         if labels:
-            print(f"  [Info] No direct match for '{value}' in options, clicking first option: '{labels[0].inner_text().strip()}'")
-            labels[0].click()
-        return True
-    elif checkboxes.count() > 0:
-        # Checkboxes question
+            fallback = labels[2] if len(labels) > 2 else labels[0] # Try to choose Free or first
+            fallback.click()
+            print(f"  License Type -> Fallback Selected: '{fallback.inner_text().strip()}'")
+            return True
+        return False
+
+    # Question 5: Program(s)
+    if "program(s) does this software serve" in clean_title or ("program" in clean_title and "notes" not in clean_title):
+        # Check "IT Systems Management and Security" if "systems management" or "itsm" is in the program
+        inv_program = str(item_data.get("What Program(s) does this software serve?", "")).lower()
         labels = container.locator('label').all()
         for label in labels:
-            label_text = label.inner_text().strip().lower()
-            if str(value).lower() in label_text:
-                # Check it
+            lbl_text = label.inner_text().strip().lower()
+            if "systems management" in lbl_text:
+                if "systems management" in inv_program or "itsm" in inv_program:
+                    input_el = label.locator('input[type="checkbox"]')
+                    if not input_el.is_checked():
+                        label.click()
+                    print("  Program -> Checked 'IT Systems Management and Security'")
+                    return True
+        return False
+
+    # Question 6: Course/module/project
+    if "course/module/project" in clean_title or "course" in clean_title:
+        value = item_data.get("What is the specific course/module/project you are using this software for?", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Courses -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 7: Number of Licenses/Users
+    if "number of licenses" in clean_title or "licenses/users" in clean_title:
+        value = item_data.get("Number of Licenses/Users (Only if known)", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Number of Licenses -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 8: Cost
+    if "cost" in clean_title:
+        value = item_data.get("Cost (only if known)", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Cost -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 9: Specific Classrooms
+    if "specific classrooms" in clean_title or "classrooms" in clean_title:
+        value = item_data.get("Specific Classrooms you intend to use software in. (If on-prem software)", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Classrooms -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 10: Scope of use
+    if "scope of use" in clean_title or "scope" in clean_title:
+        inv_scope = str(item_data.get("Scope  (lab, faculty, student, cloud, all)", "")).lower()
+        labels = container.locator('label').all()
+        matched_any = False
+        for label in labels:
+            lbl_text = label.inner_text().strip().lower()
+            should_check = False
+            if "all" in inv_scope:
+                should_check = True
+            elif "lab" in lbl_text and "lab" in inv_scope:
+                should_check = True
+            elif "faculty" in lbl_text and "faculty" in inv_scope:
+                should_check = True
+            elif "student" in lbl_text and "student" in inv_scope:
+                should_check = True
+            elif "cloud" in lbl_text and "cloud" in inv_scope:
+                should_check = True
+            
+            if should_check:
                 input_el = label.locator('input[type="checkbox"]')
                 if not input_el.is_checked():
                     label.click()
-        return True
+                print(f"  Scope of use -> Checked '{label.inner_text().strip()}'")
+                matched_any = True
+        return matched_any
+
+    # Question 11: Notes/Comments
+    if "notes/comments" in clean_title or "notes" in clean_title or "comments" in clean_title:
+        value = item_data.get("Notes/Comments/Special Requirements", "")
+        if text_input.count() > 0:
+            text_input.fill(str(value))
+            print(f"  Notes -> Filled: '{value}'")
+            return True
+        return False
+
+    # Question 12: Already being used
+    if "already being used" in clean_title or "already used" in clean_title or "existing" in clean_title:
+        value = str(item_data.get("Is this a software or service that is already being used?", "")).lower()
+        labels = container.locator('label').all()
+        for label in labels:
+            lbl_text = label.inner_text().strip().lower()
+            if value == "yes" and lbl_text == "yes":
+                label.click()
+                print("  Already used -> Selected 'Yes'")
+                return True
+            elif value == "no" and lbl_text == "no":
+                label.click()
+                print("  Already used -> Selected 'No'")
+                return True
+        return False
         
     return False
 
@@ -190,7 +259,7 @@ def run_submit(headful=False, confirm_each=False, dry_run=False):
                 
             # Wait for questions to load
             try:
-                page.wait_for_selector('div[data-automation-id="question-container"]', timeout=15000)
+                page.wait_for_selector('div[data-automation-id="questionItem"]', timeout=15000)
             except Exception as e:
                 print("Error: Question container not found. The form failed to render or session is invalid.")
                 # Save screenshot
@@ -199,12 +268,12 @@ def run_submit(headful=False, confirm_each=False, dry_run=False):
                 break
                 
             # Find all question containers
-            containers = page.locator('div[data-automation-id="question-container"]').all()
+            containers = page.locator('div[data-automation-id="questionItem"]').all()
             print(f"Found {len(containers)} questions on the form.")
             
             # Fill out each question
             for container in containers:
-                title_el = container.locator('[data-automation-id="question-title"]')
+                title_el = container.locator('[data-automation-id="questionTitle"]')
                 if title_el.count() > 0:
                     title_text = title_el.inner_text()
                     match_field_and_fill(page, container, title_text, item)
