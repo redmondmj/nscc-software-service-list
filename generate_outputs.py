@@ -113,15 +113,15 @@ def generate_report(data):
             categories["Virtualization & Hypervisors"].append(item)
         elif "aws" in name_lower or "azure" in name_lower or "cloud" in name_lower:
             categories["Cloud Computing Platforms"].append(item)
-        elif "windows server" in name_lower or "windows 1" in name_lower or "linux" in name_lower or "adk" in name_lower:
+        elif "windows server" in name_lower or "windows 1" in name_lower or "linux" in name_lower or "adk" in name_lower or "winpe" in name_lower or "windows pe" in name_lower or "winre" in name_lower or "dism" in name_lower or "rufus" in name_lower:
             categories["Operating Systems (Server & Client)"].append(item)
         elif "dhcp" in name_lower or "dns" in name_lower or "iis" in name_lower or "apache" in name_lower or "nginx" in name_lower or "samba" in name_lower or "linkrunner" in name_lower or "tftp" in name_lower or "wifiman" in name_lower:
             categories["Network Services & Infrastructure"].append(item)
-        elif "ansible" in name_lower or "terraform" in name_lower or "git" in name_lower or "kubernetes" in name_lower or "docker" in name_lower:
+        elif "ansible" in name_lower or "terraform" in name_lower or "git" in name_lower or "kubernetes" in name_lower or "docker" in name_lower or "sccm" in name_lower or "mcm" in name_lower or "puppet" in name_lower or "chef" in name_lower or "ninite" in name_lower:
             categories["DevOps & Automation Tools"].append(item)
         elif "wireshark" in name_lower or "nmap" in name_lower or "metasploit" in name_lower or "nessus" in name_lower or "pfsense" in name_lower or "opensense" in name_lower:
             categories["Security & Penetration Testing Tools"].append(item)
-        elif "vs code" in name_lower or "python" in name_lower or "mysql" in name_lower or "postgresql" in name_lower or "mongodb" in name_lower or "putty" in name_lower or "draw.io" in name_lower or "tera term" in name_lower or "sysinternals" in name_lower or "ollama" in name_lower or "windirstat" in name_lower or "admin center" in name_lower:
+        elif "vs code" in name_lower or "python" in name_lower or "mysql" in name_lower or "postgresql" in name_lower or "mongodb" in name_lower or "putty" in name_lower or "draw.io" in name_lower or "tera term" in name_lower or "sysinternals" in name_lower or "ollama" in name_lower or "windirstat" in name_lower or "admin center" in name_lower or "sql server" in name_lower:
             categories["Development & Programming Utilities"].append(item)
         else:
             categories["Collaboration & Productivity Services"].append(item)

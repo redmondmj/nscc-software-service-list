@@ -28,6 +28,10 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Debian GNU/Linux** | ISEC2700, NETW2710, OSYS3030 | Open Source (Free) | *all* | Used in virtualization labs, containers, and Linux network services. |
 | **Windows ADK** | NETW1500, NETW3500 | Free | *student, faculty, lab* | Set of tools used to customize Windows images for large-scale deployment and to test system performance. |
 | **Windows Subsystem for Linux** | ISEC2700, NETW2710, OSYS3030 | Free | *student, faculty, lab* | Compatibility layer for running Linux binary executables natively on Windows 10/11, vital for container, Docker, and DevOps labs. |
+| **Windows PE (Preinstallation Environment)** | NETW1500, NETW3500 | Free | *student, faculty, lab* | Lightweight operating system used for preparing PCs for Windows installation and deployment (MCM dependency). |
+| **Windows Recovery Environment (WinRE)** | OSYS1200, NETW1500 | Free (OS Native) | *student, faculty, lab* | Recovery environment used to troubleshoot, recover, or restore Windows installations. |
+| **DISM** | NETW1500, NETW3500 | Free (OS Native) | *student, faculty, lab* | Command-line tool used to service Windows images (.wim, .vhd) prior to deployment. |
+| **Rufus** | OSYS1200, NETW1500 | Open Source (Free) | *student, faculty, lab* | Utility that helps format and create bootable USB flash drives for OS installation. |
 
 ### Network Services & Infrastructure
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -46,6 +50,10 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Kubernetes (k8s)** | NETW3500 | Open Source (Free) | *cloud, student, lab* | Container orchestration engine for automated deployment, scaling, and management of containerized apps. |
 | **Ansible** | ITSM Program | Open Source (Free) | *all* | Agentless automation and configuration management tool used for server configuration orchestration. |
 | **HashiCorp Terraform** | ITSM Program | Open Source (BUSL) | *all* | Infrastructure as Code (IaC) tool to provision and manage cloud infrastructure. |
+| **Microsoft Endpoint Configuration Manager (MCM / SCCM)** | NETW3500 (Enterprise Management and Automation) | Subscription / Client/Server (Academic License) | *lab, faculty, student* | Enterprise systems management software for managing large groups of Windows-based computers. |
+| **Ninite** | OSYS1200, NETW1500 | Free / Proprietary | *student, faculty, lab* | Package management utility to install and update multiple applications automatically. |
+| **Puppet** | NETW3500 (Enterprise Management and Automation) | Open Source / Free | *student, lab* | Configuration management utility to automate provisioning and compliance management (taught alongside Ansible). |
+| **Chef** | NETW3500 (Enterprise Management and Automation) | Open Source / Free | *student, lab* | Infrastructure automation platform used to define infrastructure as code (taught alongside Ansible). |
 
 ### Security & Penetration Testing Tools
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -71,6 +79,7 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Tera Term** | NETW1027, NETW1500 | Open Source (Free) | *student, faculty, lab* | A terminal emulator program supporting serial port, SSH, and telnet connections for managing switch/router consoles. |
 | **Ollama** | ITSM Program | Open Source (Free) | *student, faculty, lab* | Local execution environment for large language models, allowing AI integration in developer tools and terminal setups. |
 | **WinDirStat** | OSYS1200 | Open Source (Free) | *student, faculty, lab* | Disk usage statistics viewer and cleanup tool, helping visualize storage consumption. |
+| **Microsoft SQL Server** | NETW3500 (Enterprise Management and Automation), DBAS1007 | Subscription / Client/Server (Academic License / Developer Edition) | *lab, faculty, student* | Relational database management server, serving as the backend database host for Configuration Manager (MCM). |
 
 ### Collaboration & Productivity Services
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
