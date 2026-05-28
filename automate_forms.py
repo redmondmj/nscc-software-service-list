@@ -217,6 +217,22 @@ def match_field_and_fill(page, container, title, item_data):
 
 import re
 
+def get_submitted_software():
+    submitted = set()
+    if os.path.exists(LOG_FILE):
+        import csv
+        try:
+            with open(LOG_FILE, "r", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                # Skip header
+                next(reader, None)
+                for row in reader:
+                    if len(row) >= 3 and row[2] == "Success":
+                        submitted.add(row[1])
+        except Exception as e:
+            print(f"Warning: Could not read submission log: {e}")
+    return submitted
+
 def run_submit(headful=False, confirm_each=False, dry_run=False):
     if not os.path.exists(AUTH_FILE):
         print(f"Error: Authentication file '{AUTH_FILE}' not found. Please run with --login first.")
@@ -231,6 +247,11 @@ def run_submit(headful=False, confirm_each=False, dry_run=False):
         
     print(f"Loaded {len(inventory)} software items for submission.")
     
+    # Check already submitted items to prevent duplicates
+    submitted_items = get_submitted_software()
+    if submitted_items:
+        print(f"Detected {len(submitted_items)} successfully submitted items in log.")
+    
     # Prepare logs
     if not os.path.exists(LOG_FILE):
         with open(LOG_FILE, "w", encoding="utf-8") as f:
@@ -242,11 +263,20 @@ def run_submit(headful=False, confirm_each=False, dry_run=False):
         context = browser.new_context(storage_state=AUTH_FILE)
         page = context.new_page()
         
-        # If dry run, we only test the first item
-        items_to_submit = [inventory[0]] if dry_run else inventory
-        
+        # If dry run, we only test the first unsubmitted item
+        if dry_run:
+            unsubmitted = [item for item in inventory if item["Software Name"] not in submitted_items]
+            items_to_submit = [unsubmitted[0]] if unsubmitted else [inventory[0]]
+        else:
+            items_to_submit = inventory
+            
         for idx, item in enumerate(items_to_submit):
             name = item["Software Name"]
+            
+            if not dry_run and name in submitted_items:
+                print(f"--- [{idx+1}/{len(items_to_submit)}] Skipping: {name} (already submitted) ---")
+                continue
+                
             print(f"\n--- [{idx+1}/{len(items_to_submit)}] {'[DRY RUN]' if dry_run else 'Submitting'}: {name} ---")
             
             page.goto(FORM_URL)

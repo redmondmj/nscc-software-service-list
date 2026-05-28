@@ -12,6 +12,7 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **VMware vCenter Server** | ISEC2700, NETW2710 | Subscription / Academic | *lab, faculty* | Centralized management platform for vSphere environments and ESXi hosts. |
 | **Proxmox VE** | ISEC2700, NETW1500, NETW2710, OSYS3030 | Open Source (Free / No Subscription Repository) | *lab, faculty* | Open-source hypervisor used in virtual lab setups and container virtualization environments. |
 | **Oracle VM VirtualBox** | ISEC3700, OSYS3030 | Open Source (GPL v2) / Free | *student, faculty* | Type-2 hypervisor used as an alternative for local VM hosting. |
+| **VirtViewer** | NETW2710, OSYS3030 | Open Source (Free) | *student, faculty, lab* | Spice protocol client for high-performance remote console access to virtual machines. |
 
 ### Cloud Computing Platforms
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -25,6 +26,8 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Microsoft Windows Server** | ISEC2700, ISEC3700, NETW1500, NETW2710, NETW3500, OSYS1200, OSYS3030 | Subscription (Azure Dev Tools for Teaching) | *all* | Primary Server OS. Used for Active Directory, Group Policy, IIS, WSUS, and DNS/DHCP infrastructure. |
 | **Microsoft Windows 10/11 Pro** | ISEC2700, ISEC3700, NETW1500, NETW3500, OSYS1200 | Subscription (Azure Dev Tools for Teaching) | *all* | Primary client operating system for workstations, user deployment, and client NOS admin labs. |
 | **Debian GNU/Linux** | ISEC2700, NETW2710, OSYS3030 | Open Source (Free) | *all* | Used in virtualization labs, containers, and Linux network services. |
+| **Windows ADK** | NETW1500, NETW3500 | Free | *student, faculty, lab* | Set of tools used to customize Windows images for large-scale deployment and to test system performance. |
+| **Windows Subsystem for Linux** | ISEC2700, NETW2710, OSYS3030 | Free | *student, faculty, lab* | Compatibility layer for running Linux binary executables natively on Windows 10/11, vital for container, Docker, and DevOps labs. |
 
 ### Network Services & Infrastructure
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -32,6 +35,8 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Apache HTTP Server** | ISEC2700, ISEC3700, OSYS3030 | Open Source (Free) | *lab, student* | Open source web server software taught in web services and Linux administration labs. |
 | **Nginx** | ISEC2700, OSYS3030 | Open Source (Free) | *lab, student* | High performance web server and reverse proxy taught in containerization and web administration. |
 | **NetAlly LinkRunner AT1000/2000** | ITSM Program | Perpetual Hardware Included | *lab, faculty* | Physical network auto-tester hardware used to verify cabling connections and link status. |
+| **Tftpd64** | NETW1500, NETW3500 | Open Source (Free) | *student, faculty, lab* | A lightweight IPv6-ready TFTP server and client utility used for network device firmware updates and PXE network booting. |
+| **WiFiman Desktop** | NETW1027, NETW1500 | Free | *student, faculty, lab* | Network diagnostics tool providing Wi-Fi discovery, device scanning, and link speed analysis. |
 
 ### DevOps & Automation Tools
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -61,6 +66,11 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **MongoDB** | ITSM Program | Open Source (SSPL) | *lab, student* | Document-based NoSQL database used to teach non-relational database fundamentals. |
 | **PuTTY & MobaXterm** | NETW3500 | Open Source (Free) / Free Edition | *all* | Terminal clients (SSH, telnet, serial) used to connect to routers, switches, and remote servers. |
 | **draw.io** | NETW1027, DBAS1007 | Open Source (Free) | *student, faculty* | Diagramming software used by students to design network topologies and databases (ERDs). |
+| **Sysinternals Suite** | OSYS1200, OSYS3030, ISEC2700 | Free | *student, faculty, lab* | Advanced system diagnostics utilities (Procmon, Process Explorer, Autoruns) for Windows troubleshooting. |
+| **Windows Admin Center** | OSYS1200, OSYS3030 | Free (Windows Server License Required) | *student, faculty, lab* | Browser-based management tool for administering Windows Server, clusters, and hyper-converged infrastructure. |
+| **Tera Term** | NETW1027, NETW1500 | Open Source (Free) | *student, faculty, lab* | A terminal emulator program supporting serial port, SSH, and telnet connections for managing switch/router consoles. |
+| **Ollama** | ITSM Program | Open Source (Free) | *student, faculty, lab* | Local execution environment for large language models, allowing AI integration in developer tools and terminal setups. |
+| **WinDirStat** | OSYS1200 | Open Source (Free) | *student, faculty, lab* | Disk usage statistics viewer and cleanup tool, helping visualize storage consumption. |
 
 ### Collaboration & Productivity Services
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
