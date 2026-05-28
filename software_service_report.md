@@ -19,6 +19,8 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | --- | --- | --- | --- | --- |
 | **AWS Academy / Cloud Sandbox** | ISEC2700, ISEC3700, NETW1500, NETW2710, OSYS3030 | Subscription / Free Academic Tier | *cloud, student* | Cloud environment used to deploy virtual networks (VPC), EC2 servers, and practice cloud administration. |
 | **Microsoft Azure for Students** | ISEC2700, ISEC3700, NETW1027, NETW1500, NETW2710, NETW3500, OSYS1200, OSYS3030 | Subscription / Free Academic Tier | *cloud, student* | Cloud platform hosting virtual machines, app services, and active directory synchronizations. |
+| **Microsoft Defender for Endpoint / Cloud** | ISEC2700, ISEC3700, NETW3500 | Subscription (M365 Developer / VS Enterprise) | *student, faculty, cloud* | Enterprise endpoint security platform for prevention, detection, investigation, and response. |
+| **Azure Dev Tools for Teaching (Microsoft Azure Education Hub / MS Foundry)** | ITSM Program | Subscription (Academic Hub) | *student, faculty, all* | Academic portal giving students and faculty access to software licenses (Windows Server, Windows client, SQL Server) and Azure learning resources. |
 
 ### Operating Systems (Server & Client)
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |
@@ -80,6 +82,8 @@ This report compiles all the software tools, cloud services, and hardware utilit
 | **Ollama** | ITSM Program | Open Source (Free) | *student, faculty, lab* | Local execution environment for large language models, allowing AI integration in developer tools and terminal setups. |
 | **WinDirStat** | OSYS1200 | Open Source (Free) | *student, faculty, lab* | Disk usage statistics viewer and cleanup tool, helping visualize storage consumption. |
 | **Microsoft SQL Server** | NETW3500 (Enterprise Management and Automation), DBAS1007 | Subscription / Client/Server (Academic License / Developer Edition) | *lab, faculty, student* | Relational database management server, serving as the backend database host for Configuration Manager (MCM). |
+| **Visual Studio Enterprise Subscription** | ITSM Program | Subscription (Faculty/Academic License) | *faculty, lab* | Enterprise subscription providing access to full IDE, Azure credits, developer sandbox environments, and software licensing. |
+| **Microsoft 365 Developer Sandbox** | NETW3500, NETW1500 | Subscription (via VS Enterprise / Dev Program) | *student, faculty, cloud* | A free, renewable sandboxed environment pre-configured with 25 user licenses for testing M365, Teams, Entra ID, Outlook, and Intune. |
 
 ### Collaboration & Productivity Services
 | Software/Service Name | Courses Used In | License Type | Scope | Notes |

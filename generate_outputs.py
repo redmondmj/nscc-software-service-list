@@ -119,9 +119,9 @@ def generate_report(data):
             categories["Network Services & Infrastructure"].append(item)
         elif "ansible" in name_lower or "terraform" in name_lower or "git" in name_lower or "kubernetes" in name_lower or "docker" in name_lower or "sccm" in name_lower or "mcm" in name_lower or "puppet" in name_lower or "chef" in name_lower or "ninite" in name_lower:
             categories["DevOps & Automation Tools"].append(item)
-        elif "wireshark" in name_lower or "nmap" in name_lower or "metasploit" in name_lower or "nessus" in name_lower or "pfsense" in name_lower or "opensense" in name_lower:
+        elif "wireshark" in name_lower or "nmap" in name_lower or "metasploit" in name_lower or "nessus" in name_lower or "pfsense" in name_lower or "opensense" in name_lower or "defender" in name_lower:
             categories["Security & Penetration Testing Tools"].append(item)
-        elif "vs code" in name_lower or "python" in name_lower or "mysql" in name_lower or "postgresql" in name_lower or "mongodb" in name_lower or "putty" in name_lower or "draw.io" in name_lower or "tera term" in name_lower or "sysinternals" in name_lower or "ollama" in name_lower or "windirstat" in name_lower or "admin center" in name_lower or "sql server" in name_lower:
+        elif "vs code" in name_lower or "python" in name_lower or "mysql" in name_lower or "postgresql" in name_lower or "mongodb" in name_lower or "putty" in name_lower or "draw.io" in name_lower or "tera term" in name_lower or "sysinternals" in name_lower or "ollama" in name_lower or "windirstat" in name_lower or "admin center" in name_lower or "sql server" in name_lower or "visual studio" in name_lower or "sandbox" in name_lower:
             categories["Development & Programming Utilities"].append(item)
         else:
             categories["Collaboration & Productivity Services"].append(item)
