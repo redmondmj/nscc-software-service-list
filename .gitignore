@@ -1,0 +1,29 @@
+# Playwright & Session State (Sensitive!)
+auth_state.json
+
+# Environment variables & local secrets
+.env
+.env.local
+
+# Python virtual environment & cache
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Node modules & logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Generated Output Files (Optional to check in, but ignored by default to keep repo clean)
+# *.xlsx
+# *.md (Except README and implementation plan)
+submission_log.csv
+
+# OS metadata
+.DS_Store
+Thumbs.db
